@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post</title>
+    <link rel="stylesheet" href="../public/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">Blog</a></h1>
+        <nav id="auth-nav">
+            <!-- Auth buttons will be inserted here -->
+        </nav>
+    </header>
+    <main>
+        <h2>Create New Post</h2>
+        <form id="post-form">
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+            <label for="content">Content:</label>
+            <textarea id="content" rows="10" required></textarea>
+            <button type="submit" name="action" value="draft">Save as Draft</button>
+            <button type="submit" name="action" value="publish">Publish</button>
+        </form>
+    </main>
+    <script src="../js/postForm.js"></script>
+</body>
+</html>
