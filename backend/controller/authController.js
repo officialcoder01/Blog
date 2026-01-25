@@ -5,8 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const {
     createUser,
-    getUserByEmail,
-    getUserById
+    getUserByEmail
 } = require('../queries/user');
 
 // Registration validation and handler
