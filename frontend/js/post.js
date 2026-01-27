@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const postContainer = document.getElementById('post-container');
 const authNav = document.getElementById('auth-nav');
 const commentsContainer = document.getElementById('comments-container');
@@ -45,7 +46,7 @@ if (!postId) {
     // Fetch and display the post
     async function loadPost() {
         try {
-            const response = await fetch(`http://localhost:3000/posts/${postId}`);
+            const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
             if (!response.ok) throw new Error('Failed to fetch post');
             const post = await response.json();
             postContainer.innerHTML = `
@@ -66,7 +67,7 @@ if (!postId) {
     // Fetch and display comments
     async function loadComments() {
         try {
-            const response = await fetch(`http://localhost:3000/comments/${postId}`);
+            const response = await fetch(`${API_BASE_URL}/comments/${postId}`);
             if (!response.ok) throw new Error('Failed to fetch comments');
             const comments = await response.json();
             if (comments.length === 0) {
@@ -131,7 +132,7 @@ if (!postId) {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/comments/edit/${commentId}`, {
+            const response = await fetch(`${API_BASE_URL}/comments/edit/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -163,7 +164,7 @@ if (!postId) {
         if (!confirm('Are you sure you want to delete this comment?')) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/comments/delete/${commentId}`, {
+            const response = await fetch(`${API_BASE_URL}/comments/delete/${commentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -194,7 +195,7 @@ if (!postId) {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/comments', {
+            const response = await fetch(`${API_BASE_URL}/comments`, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ content, postId: parseInt(postId) })

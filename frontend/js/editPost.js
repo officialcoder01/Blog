@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const editForm = document.getElementById('edit-post-form');
 const titleInput = document.getElementById('title');
 const contentInput = document.getElementById('content');
@@ -28,7 +29,7 @@ if (!postId) {
 // Load post data
 async function loadPost() {
     try {
-        const response = await fetch(`http://localhost:3000/admin/posts/${postId}`, {
+        const response = await fetch(`${API_BASE_URL}/admin/posts/${postId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) throw new Error('Failed to fetch post');
@@ -56,7 +57,7 @@ editForm.addEventListener('submit', async (e) => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/admin/posts/${postId}`, {
+        const response = await fetch(`${API_BASE_URL}/admin/posts/${postId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

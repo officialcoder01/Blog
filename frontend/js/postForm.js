@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const authNav = document.getElementById('auth-nav');
 const postForm = document.getElementById('post-form');
 
@@ -42,7 +43,7 @@ postForm.addEventListener('submit', async (e) => {
     const published = action === 'publish';
 
     try {
-        const response = await fetch('http://localhost:3000/admin/new', {
+        const response = await fetch(`http://${API_BASE_URL}/admin/new`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

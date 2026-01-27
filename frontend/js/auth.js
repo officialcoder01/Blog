@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const userName = document.getElementById('username');
 const userEmail = document.getElementById('email');
 const userPassword = document.getElementById('password');
@@ -22,7 +23,7 @@ if (form) {
         };
 
         try {
-            const res = await fetch('http://localhost:3000/auth/register', {
+            const res = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -63,7 +64,7 @@ if (loginForm) {
             password: loginPassword.value
         };
         try {
-            const res = await fetch('http://localhost:3000/auth/login', {
+            const res = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

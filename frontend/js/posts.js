@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const postsContainer = document.getElementById('posts-container');
 const authNav = document.getElementById('auth-nav');
 
@@ -33,7 +34,7 @@ if (token) {
 // Fetch and display published posts
 async function loadPosts() {
     try {
-        const response = await fetch('http://localhost:3000/posts');
+        const response = await fetch(`http://${API_BASE_URL}/posts`);
         if (!response.ok) throw new Error('Failed to fetch posts');
         const posts = await response.json();
         if (posts.length === 0) {

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './api.js';
 const postsContainer = document.getElementById('posts-container');
 const logoutBtn = document.getElementById('logout-btn');
 
@@ -16,7 +17,7 @@ if (!token) {
 // Function to load all posts
 async function loadPosts() {
     try {
-        const response = await fetch('http://localhost:3000/admin/posts', {
+        const response = await fetch(`http://${API_BASE_URL}/admin/posts`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) throw new Error('Failed to fetch posts');
@@ -97,7 +98,7 @@ function loadCommentsForPost(comments, commentsDiv) {
 // Function to publish a post
 async function publishPost(postId) {
     try {
-        const response = await fetch(`http://localhost:3000/admin/posts/${postId}/publish`, {
+        const response = await fetch(`http://${API_BASE_URL}/admin/posts/${postId}/publish`, {
             method: 'PATCH',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -115,7 +116,7 @@ async function publishPost(postId) {
 // Function to unpublish a post
 async function unpublishPost(postId) {
     try {
-        const response = await fetch(`http://localhost:3000/admin/posts/${postId}/unpublish`, {
+        const response = await fetch(`http://${API_BASE_URL}/admin/posts/${postId}/unpublish`, {
             method: 'PATCH',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -134,7 +135,7 @@ async function unpublishPost(postId) {
 async function deletePost(postId) {
     if (!confirm('Are you sure you want to delete this post?')) return;
     try {
-        const response = await fetch(`http://localhost:3000/admin/posts/${postId}`, {
+        const response = await fetch(`http://${API_BASE_URL}/admin/posts/${postId}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -195,7 +196,7 @@ async function editComment(commentId) {
         const newContent = textarea.value.trim();
         if (!newContent) return alert('Comment cannot be empty');
         try {
-            const response = await fetch(`http://localhost:3000/comments/edit/${commentId}`, {
+            const response = await fetch(`http://${API_BASE_URL}/comments/edit/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +220,7 @@ async function editComment(commentId) {
 async function deleteComment(commentId) {
     if (!confirm('Are you sure you want to delete this comment?')) return;
     try {
-        const response = await fetch(`http://localhost:3000/comments/delete/${commentId}`, {
+        const response = await fetch(`http://${API_BASE_URL}/comments/delete/${commentId}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });
