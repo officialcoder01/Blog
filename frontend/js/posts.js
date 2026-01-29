@@ -34,7 +34,7 @@ if (token) {
 // Fetch and display published posts
 async function loadPosts() {
     try {
-        const response = await fetch(`http://${API_BASE_URL}/posts`);
+        const response = await fetch(`${API_BASE_URL}/posts`);
         if (!response.ok) throw new Error('Failed to fetch posts');
         const posts = await response.json();
         if (posts.length === 0) {
