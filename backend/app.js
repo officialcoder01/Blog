@@ -14,14 +14,15 @@ const port = process.env.PORT || 3000;
 
 passport.use(jwtStrategy);
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://prismatic-kelpie-adf0bc.netlify.app',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
