@@ -87,3 +87,25 @@ if (loginForm) {
         }
     });
 }
+
+// ask backend who am I based on stored token
+export const getIdentity = async function() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        return { isAuthenticated: false };
+    }
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/me`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return { isAuthenticated: true, user: data.user };
+        } else {
+            return { isAuthenticated: false };
+        }
+    } catch (err) {
+        console.error(err);
+        return { isAuthenticated: false };
+    }
+};

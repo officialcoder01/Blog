@@ -1,23 +1,12 @@
 import { API_BASE_URL } from './api.js';
+import { getIdentity } from './auth.js';
 const postsContainer = document.getElementById('posts-container');
 const authNav = document.getElementById('auth-nav');
 
-// Function to decode JWT payload
-function decodeJWT(token) {
-    try {
-        const payload = token.split('.')[1];
-        const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
-        return decoded;
-    } catch (error) {
-        console.error('Error decoding token:', error);
-        return null;
-    }
-}
-
 // Check if user is logged in
-const token = localStorage.getItem('token');
-if (token) {
-    const user = decodeJWT(token);
+const identity = await getIdentity();
+if (identity.isAuthenticated) {
+    const user = identity.user;
     let navHTML = '<button id="logout-btn">Logout</button>';
     if (user && user.role === 'ADMIN') {
         navHTML = '<a href="admin.html"><button>Admin Dashboard</button></a> <a href="postForm.html"><button>Create Post</button></a> ' + navHTML;

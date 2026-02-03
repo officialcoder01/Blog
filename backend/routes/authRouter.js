@@ -10,7 +10,6 @@ const router = Router();
 // Registration route
 router.post('/register', register);
 
-
 // Login route
 // Authenticate using passport local strategy
 // On successful authentication, generate JWT and send to client
@@ -24,6 +23,10 @@ router.post('/login', passport.authenticate('local', { session: false }), (req, 
     const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, opts.secret, { expiresIn: opts.expiresIn });
 
     res.json({ message: 'Login successful', token });
+});
+
+router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ user: req.user });
 });
 
 module.exports = router;

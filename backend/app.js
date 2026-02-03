@@ -14,6 +14,8 @@ const port = process.env.PORT || 3000;
 
 passport.use(jwtStrategy);
 
+// app.use(cors());  // Allow all origins for development purposes
+
 app.use(cors({
     origin: 'https://prismatic-kelpie-adf0bc.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
