@@ -23,6 +23,8 @@ app.use(cors({
     credentials: true
 }));
 
+app.set('trust proxy', 1); // Trust first proxy for rate limiter to work correctly behind proxies/load balancers
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
