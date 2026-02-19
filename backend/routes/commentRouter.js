@@ -2,6 +2,7 @@ const { Router } = require('express');
 const commentController = require('../controller/commentController');
 const { authorizeCommentEditAndDelete } = require('../middleware/identityCheck');
 const passport = require('passport');
+const { generalLimiter } = require('../middleware/rateLimiter');
 
 const router = Router();
 
@@ -15,13 +16,14 @@ const optionalAuth =  (req, res, next) => {
 };
 
 // Route to create a new comment (accessible to both authenticated users and guests)
-router.post('/', optionalAuth, commentController.createComment);
+router.post('/', generalLimiter, optionalAuth, commentController.createComment);
 
 // Route to get comments for a post
-router.get('/:postId', commentController.getCommentsByPostId);
+router.get('/:postId', generalLimiter, commentController.getCommentsByPostId);
 
 // Route to update comments
 router.put('/edit/:Id',
+    generalLimiter,
     passport.authenticate('jwt', { session: false }),
     authorizeCommentEditAndDelete,
     commentController.editComment
@@ -29,6 +31,7 @@ router.put('/edit/:Id',
 
 // Route to delete comments
 router.delete('/delete/:Id',
+    generalLimiter,
     passport.authenticate('jwt', { session: false }),
     authorizeCommentEditAndDelete,
     commentController.deleteComment

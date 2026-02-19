@@ -2,18 +2,19 @@ const { Router } = require('express');
 const { register } = require('../controller/authController');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const { authLimiter } = require('../middleware/rateLimiter')
 
 require('dotenv').config();
 
 const router = Router();
 
 // Registration route
-router.post('/register', register);
+router.post('/register', authLimiter, register);
 
 // Login route
 // Authenticate using passport local strategy
 // On successful authentication, generate JWT and send to client
-router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
+router.post('/login', authLimiter, passport.authenticate('local', { session: false }), (req, res) => {
     // Generate JWT
     const user = req.user;
     const opts = {};
